@@ -9,10 +9,21 @@
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
+Classes: Pet, Task, Owner, Schedule
+- Pet: stores pet information (name, type)
+- Task: represents a care task (name, duration, priority)
+- Owner: holds owner info, a single pet, and a list of tasks
+- Schedule: generates and explains a daily plan from tasks
+
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+
+Yes, after asking Copilot to review the skeleton again, the design changed to better support future requirements and avoid bottlenecks:
+- Owner now supports multiple pets instead of just one
+- Each Task is linked to a specific Pet and has a status field
+- Schedule is generated for an Owner and pulls tasks for a given date
 
 ---
 
