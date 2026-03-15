@@ -42,6 +42,37 @@ class Owner:
       return self.get_all_tasks()
 
 class Scheduler:
+   def detect_conflicts(self, tasks: List[Task]) -> List[str]:
+      """Detects if two or more tasks are scheduled at the same time for the same or different pets."""
+      warnings = []
+      time_to_tasks = {}
+      for pet in self.owner.pets:
+         for task in pet.tasks:
+            key = (task.time, pet.name)
+            if task.time not in time_to_tasks:
+               time_to_tasks[task.time] = []
+            time_to_tasks[task.time].append((pet.name, task.description))
+      # Check for conflicts (same time, more than one task)
+      for time, task_list in time_to_tasks.items():
+         if len(task_list) > 1:
+            pets = ', '.join([f"{pet} ({desc})" for pet, desc in task_list])
+            warnings.append(f"Conflict at {time}: Multiple tasks scheduled for {pets}.")
+      return warnings
+   
+   def sort_by_time(self, tasks: List[Task]) -> List[Task]:
+      """Sorts tasks by their time attribute (HH:MM format)."""
+      return sorted(tasks, key=lambda t: t.time)
+
+   def filter_tasks(self, tasks: List[Task], status: Optional[str] = None, pet_name: Optional[str] = None) -> List[Task]:
+      """Filters tasks by completion status and/or pet name."""
+      filtered = tasks
+      if status is not None:
+         filtered = [t for t in filtered if t.status == status]
+      if pet_name is not None:
+         # Find tasks belonging to the specified pet
+         filtered = [t for t in filtered if any(pet.name == pet_name and t in pet.tasks for pet in self.owner.pets)]
+      return filtered
+   
    def __init__(self, owner: Owner):
       self.owner = owner
 

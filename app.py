@@ -1,4 +1,5 @@
 import streamlit as st
+from pawpal_system import Task, Pet, Owner, Scheduler
 
 st.set_page_config(page_title="PawPal+", page_icon="🐾", layout="centered")
 
@@ -42,6 +43,18 @@ st.subheader("Quick Demo Inputs (UI only)")
 owner_name = st.text_input("Owner name", value="Jordan")
 pet_name = st.text_input("Pet name", value="Mochi")
 species = st.selectbox("Species", ["dog", "cat", "other"])
+
+if "owner" not in st.session_state:
+    st.session_state.owner = Owner(name=owner_name)
+
+if st.button("Add Pet"):
+    new_pet = Pet(name=pet_name, type=species)
+    st.session_state.owner.add_pet(new_pet)
+    st.success(f"Added pet: {pet_name} ({species})")
+
+if st.session_state.owner.pets:
+    st.write("Current pets:")
+    st.table([{"Name": pet.name, "Type": pet.type} for pet in st.session_state.owner.pets])
 
 st.markdown("### Tasks")
 st.caption("Add a few tasks. In your final version, these should feed into your scheduler.")
