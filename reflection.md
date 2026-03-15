@@ -2,6 +2,8 @@
 
 ## 1. System Design
 
+- 3 core actions: enter and manage owner/pet information, schedule and manage any tasks and appointments, view a general schedule of upcoming and completed tasks 
+
 **a. Initial design**
 
 - Briefly describe your initial UML design.
