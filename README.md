@@ -22,6 +22,25 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+# Testing PawPal+
+
+To run the test suite use the following command in the project directory:
+python -m pytest
+
+**Test Coverage:**
+- Task completion and status updates
+- Adding tasks to pets
+- Sorting tasks by time and by priority
+- Conflict detection for overlapping tasks (same time, same/different pets)
+- Filtering tasks by status and pet
+- Handling empty and boundary cases
+- Basic recurrence logic for daily tasks
+
+**Confidence Level:**
+4/5 stars
+
+The system is well-tested for core scheduling, sorting, and conflict scenarios. Some advanced recurrence patterns may require further testing for full coverage.
+
 ## Getting started
 
 ### Setup
